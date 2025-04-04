@@ -48,7 +48,6 @@ class SudokuCheckerTest {
         )
         assertFalse(sudokuChecker.isValidSudoku(invalidSudoku))
     }
-
     /**
      * - Test: isValidSudoku_GivenInvalid4x3Board_ShouldReturnFalse
      * - Scenario: A 4x3 board contains duplicates in a row.
