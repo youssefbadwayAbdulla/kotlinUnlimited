@@ -49,34 +49,6 @@ class SudokuCheckerTest {
         assertFalse(sudokuChecker.isValidSudoku(invalidSudoku))
     }
 
-/*
-    */
-/**
-     * - Test: isValidSudoku_GivenValid4x3Board_ShouldReturnTrue
-     * - Scenario: A 4x3 board is provided without duplicates.
-     * - Expected Result: The board is valid, and the function should return true.
-     *//*
-
-    @Test
-    fun isValidSudoku_GivenValid4x3Board_ShouldReturnTrue() {
-        val validSudoku = listOf(
-            listOf('1', '2', '3'),
-            listOf('3', '1', '2'),
-            listOf('2', '3', '1'),
-            listOf('-', '-', '-')
-        )
-
-        println("Checking Sudoku Board: $validSudoku")
-
-        val result = sudokuChecker.isValidSudoku(validSudoku)
-
-        println("Result: $result")
-
-        assertTrue(result)  // Expected to be true
-    }
-
-*/
-
     /**
      * - Test: isValidSudoku_GivenInvalid4x3Board_ShouldReturnFalse
      * - Scenario: A 4x3 board contains duplicates in a row.
