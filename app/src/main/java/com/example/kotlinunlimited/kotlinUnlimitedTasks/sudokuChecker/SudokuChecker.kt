@@ -38,20 +38,6 @@ class SudokuChecker {
 
 
 /**
- * Explanation of the Implementation
- * Extracts the Sudoku grid size and calculates the box size dynamically.
- *
- * Uses sets (HashSet) to track unique values in rows, columns, and boxes.
- *
- * Iterates over each cell:
- *
- * If it’s '-' (empty), it is ignored.
- *
- * Otherwise, checks if the number already exists in the corresponding row, column, or box.
- *
- * If any duplicate is found, returns false; otherwise, returns true.
-
-
 
  * Improvements:
  * Better Structure: Extracted validation logic into separate functions for better readability.
@@ -62,5 +48,5 @@ class SudokuChecker {
  *
  * Scalability: Works efficiently for different Sudoku sizes (e.g., 4×4, 16×16).
  *
- * This version ensures clarity, performance, and expandability while maintaining correctness. 🚀 Let me know if you need further enhancements!
+ * This version ensures clarity, performance, and expandability while maintaining correctness!
  */
