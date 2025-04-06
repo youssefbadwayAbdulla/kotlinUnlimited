@@ -1,7 +1,7 @@
 package com.example.kotlinunlimited.kotlinUnlimitedTasks.sudokuChecker
 
 
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.sudokuChecker.IPv4Checker.isValidIPv4
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.week1.sudokuChecker.IPv4Checker.isValidIPv4
 import org.junit.Assert.*
 import org.junit.Test
 

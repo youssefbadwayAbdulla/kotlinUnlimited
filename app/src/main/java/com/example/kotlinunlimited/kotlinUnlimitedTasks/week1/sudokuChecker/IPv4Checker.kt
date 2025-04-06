@@ -1,4 +1,4 @@
-package com.example.kotlinunlimited.kotlinUnlimitedTasks.sudokuChecker
+package com.example.kotlinunlimited.kotlinUnlimitedTasks.week1.sudokuChecker
 
 object IPv4Checker {
     fun isValidIPv4(ip: String): Boolean {

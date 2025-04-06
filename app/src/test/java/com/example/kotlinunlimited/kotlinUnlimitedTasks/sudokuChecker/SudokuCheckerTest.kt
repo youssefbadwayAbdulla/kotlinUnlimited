@@ -1,5 +1,6 @@
 package com.example.kotlinunlimited.kotlinUnlimitedTasks.sudokuChecker
 
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.week1.sudokuChecker.SudokuChecker
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

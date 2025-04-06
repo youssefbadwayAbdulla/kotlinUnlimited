@@ -1,4 +1,4 @@
-package com.example.kotlinunlimited.kotlinUnlimitedTasks.sudokuChecker
+package com.example.kotlinunlimited.kotlinUnlimitedTasks.week1.sudokuChecker
 
 import kotlin.math.sqrt
 
@@ -23,8 +23,8 @@ class SudokuChecker {
     }
 
     private fun isValidBoardSize(board: List<List<Char>>, size: Int, boxSize: Int): Boolean {
-        if (board.isEmpty() || board[0].isEmpty()) return true // ✅ Handle empty board case safely
-        return size == board[0].size && boxSize * boxSize == size
+        if (board.isEmpty() || board[0].isEmpty()) return true
+        return size == board[0].size && boxSize * boxSize == size// ✅ Handle empty board case safely
     }
 
     private fun isValidEntry(
