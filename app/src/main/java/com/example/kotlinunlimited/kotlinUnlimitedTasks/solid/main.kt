@@ -1,0 +1,12 @@
+package com.example.kotlinunlimited.kotlinUnlimitedTasks.solid
+
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.data.Order
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.PaymentProcessor
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.data.PaymentType
+
+fun main() {
+    val paymentProcessor = PaymentProcessor()
+    paymentProcessor.processPayment(order = Order(amountOrder = 100.0, currencyOrder = "USD", nameOrder = "Order 1", orderType = PaymentType.VISA))
+
+
+}
