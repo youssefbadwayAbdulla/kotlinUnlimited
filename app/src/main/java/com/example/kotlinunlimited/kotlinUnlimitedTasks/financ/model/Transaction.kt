@@ -1,4 +1,4 @@
-package com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.domain.model
+package com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.model
 
 import java.time.LocalDate
 import java.util.UUID

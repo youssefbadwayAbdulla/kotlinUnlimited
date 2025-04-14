@@ -4,47 +4,39 @@ package com.example.kotlinunlimited.kotlinUnlimitedTasks.financ
 /*
 com.finance
 │
-├── domain
 │   ├── model
-│   │   └── Transaction.kt
-│   └── repository
+│   │   └── Transaction.kt ،MonthlySummary.kt
+│   └── dataSource
 │       └── TransactionRepository.kt
-│
-├── data
-│   └── InMemoryTransactionRepository.kt
-│
-├── useCase
-│   ├── AddTransactionUseCase.kt
-│   ├── EditTransactionUseCase.kt
-│   ├── DeleteTransactionUseCase.kt
-│   └── MonthlySummaryUseCase.kt
-│   └── FindTransactionByIdUseCase.kt
-│
+│       └── TransactionDataSourceIMP.kt
 ├── cli/
 │   └── FinanceTrackerApp.kt
 │
 └── Main.kt
 */
 
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.data.repository.InMemoryTransactionRepository
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.domain.model.Transaction
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.domain.model.TransactionType
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.usecase.FindTransactionByIdUseCase
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.usecase.*
-
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.datasource.TransactionDataSourceIMP
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.logic.AddTransaction
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.logic.DeleteTransaction
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.logic.EditTransaction
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.logic.FindTransactionById
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.logic.GetAllTransaction
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.logic.MonthlySummary
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.model.Transaction
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.model.TransactionType
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeParseException
 import java.util.UUID
 
 class FinanceTrackerApp {
-    private val transactionRepository = InMemoryTransactionRepository()
-    private val addTransactionUseCase = AddTransactionUseCase(transactionRepository)
-    private val editTransactionUseCase = EditTransactionUseCase(transactionRepository)
-    private val deleteTransactionUseCase = DeleteTransactionUseCase(transactionRepository)
-    private val monthlySummaryUseCase = MonthlySummaryUseCase(transactionRepository)
-    private val getAllTransactions = GetAllTransactionUseCase(transactionRepository)
-    private val findTransactionByIdUseCase = FindTransactionByIdUseCase(transactionRepository)
+    private val transactionRepository = TransactionDataSourceIMP()
+    private val addTransaction = AddTransaction(transactionRepository)
+    private val editTransaction = EditTransaction(transactionRepository)
+    private val deleteTransaction = DeleteTransaction(transactionRepository)
+    private val monthlySummary = MonthlySummary(transactionRepository)
+    private val getAllTransaction = GetAllTransaction(transactionRepository)
+    private val findTransactionById = FindTransactionById(transactionRepository)
 
     fun start() {
         println("Welcome to Personal Finance Tracker\n")
@@ -89,7 +81,7 @@ class FinanceTrackerApp {
             category = category,
             date = date
         )
-        addTransactionUseCase.execute(transaction)
+        addTransaction.execute(transaction)
         println("${transaction.id} | ${transaction.title} |     | ${transaction.type} | ${transaction.category} | ${transaction.amount} | ${transaction.date}")
         println("✅ Transaction added!\n")
     }
@@ -110,17 +102,22 @@ class FinanceTrackerApp {
                 println("❌ Invalid UUID format. Please enter a valid UUID.")
                 continue
             }
-            val existing = findTransactionByIdUseCase.execute(id)
+            val existing = findTransactionById.execute(id)
             if (existing == null) {
                 println("❌ Transaction not found. Please check the ID and try again.")
                 continue
             }
 
             val title = promptForInput("Enter new title [${existing.title}]:", existing.title)
-            val amount = promptForAmount("Enter new amount [${existing.amount}]:") ?: existing.amount
-            val type = promptForTransactionType("Enter new type (income/expense) [${existing.type}]:") ?: existing.type
-            val category = promptForInput("Enter new category [${existing.category}]:", existing.category)
-            val date = promptForDate("Enter new date (yyyy-MM-dd) [${existing.date}]:") ?: existing.date
+            val amount =
+                promptForAmount("Enter new amount [${existing.amount}]:") ?: existing.amount
+            val type =
+                promptForTransactionType("Enter new type (income/expense) [${existing.type}]:")
+                    ?: existing.type
+            val category =
+                promptForInput("Enter new category [${existing.category}]:", existing.category)
+            val date =
+                promptForDate("Enter new date (yyyy-MM-dd) [${existing.date}]:") ?: existing.date
 
             val updated = existing.copy(
                 title = title,
@@ -130,7 +127,7 @@ class FinanceTrackerApp {
                 date = date
             )
 
-            editTransactionUseCase.execute(updated)
+            editTransaction.execute(updated)
             println("Transaction updated: ${updated.id} | ${updated.title} | ${updated.type} | ${updated.category} | ${updated.amount} | ${updated.date}")
             println("✅ Transaction updated!\n")
             return
@@ -147,7 +144,7 @@ class FinanceTrackerApp {
             return
         }
 
-        if (deleteTransactionUseCase.execute(id)) {
+        if (deleteTransaction.execute(id)) {
             println("✅ Transaction deleted.\n")
         } else {
             println("❌ Transaction not found.\n")
@@ -155,7 +152,7 @@ class FinanceTrackerApp {
     }
 
     private fun viewAllTransactions() {
-        val list = getAllTransactions.execute()
+        val list = getAllTransaction.execute()
         if (list.isEmpty()) {
             println("No transactions found.\n")
             return
@@ -171,7 +168,7 @@ class FinanceTrackerApp {
         val ymInput = readlnOrNull().orEmpty()
         try {
             val ym = YearMonth.parse(ymInput)
-            val summary = monthlySummaryUseCase.execute(ym)
+            val summary = monthlySummary.execute(ym)
             println("Income: ${summary.income}")
             println("Expenses: ${summary.expenses}")
             println("Balance: ${summary.balance}\n")

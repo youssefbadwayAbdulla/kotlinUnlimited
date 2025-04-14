@@ -1,10 +1,10 @@
-package com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.domain.repository
+package com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.datasource
 
-import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.domain.model.Transaction
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.financ.model.Transaction
 import java.time.YearMonth
 import java.util.UUID
 
-internal interface TransactionRepository {
+internal interface TransactionDataSource {
     fun add(transaction: Transaction)
     fun update(transaction: Transaction)
     fun delete(id: UUID): Boolean
