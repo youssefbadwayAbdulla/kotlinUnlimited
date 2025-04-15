@@ -1,5 +1,6 @@
 package com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment
 
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.delegation.Logger.Logger
 import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.data.Order
 import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.data.PaymentType
 import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.typePaymentStrategy.AmericanExpressPaymentStrategy
@@ -7,29 +8,29 @@ import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.typePaymen
 import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.typePaymentStrategy.PayPalPaymentStrategy
 import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.typePaymentStrategy.VisaPaymentStrategy
 
-class PaymentProcessor {
+class PaymentProcessor(private val logger: Logger) : Logger by logger {
     private lateinit var paymentStrategy: PaymentStrategy
 
     fun processPayment(order: Order) {
-        println("Processing payment for order: ${order.getName()}")
-        println("Amount: ${order.getAmount()}")
-        println("Currency: ${order.getCurrency()}")
+        log("Processing payment for order: ${order.getName()}")
+        log("Amount: ${order.getAmount()}")
+        log("Currency: ${order.getCurrency()}")
         if (order.validateOrder()) {
             paymentStrategy = setPaymentStrategyType(order.orderType)
             paymentStrategy.processPayment(order.amountOrder)
-            println("Payment processed successfully")
+            log("Payment processed successfully")
         } else {
-            println("Payment failed due to invalid order.")
+            log("Payment failed due to invalid order.")
         }
 
     }
 
     private fun setPaymentStrategyType(paymentType: PaymentType): PaymentStrategy {
         return when (paymentType) {
-            PaymentType.VISA -> VisaPaymentStrategy()
-            PaymentType.MASTERCARD -> MasterCardPaymentStrategy()
-            PaymentType.AMERICAN_EXPRESS -> AmericanExpressPaymentStrategy()
-            PaymentType.PAYPAL -> PayPalPaymentStrategy()
+            PaymentType.VISA -> VisaPaymentStrategy(logger)
+            PaymentType.MASTERCARD -> MasterCardPaymentStrategy(logger)
+            PaymentType.AMERICAN_EXPRESS -> AmericanExpressPaymentStrategy(logger)
+            PaymentType.PAYPAL -> PayPalPaymentStrategy(logger)
         }
     }
 }

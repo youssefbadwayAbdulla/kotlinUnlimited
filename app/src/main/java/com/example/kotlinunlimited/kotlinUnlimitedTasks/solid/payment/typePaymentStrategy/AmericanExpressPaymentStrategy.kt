@@ -1,9 +1,10 @@
 package com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.typePaymentStrategy
 
+import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.delegation.Logger.Logger
 import com.example.kotlinunlimited.kotlinUnlimitedTasks.solid.payment.PaymentStrategy
 
-class AmericanExpressPaymentStrategy: PaymentStrategy {
+class AmericanExpressPaymentStrategy(private val logger: Logger): PaymentStrategy , Logger by logger {
     override fun processPayment(amount: Double) {
-        println("Processing American Express payment of $amount")
+        log("Processing American Express payment of $amount")
     }
 }

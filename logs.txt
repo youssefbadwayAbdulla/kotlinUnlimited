@@ -1,0 +1,10 @@
+SYSTEM LOG: | Mon Apr 14 15:15:12 EET 2025 | Processing payment for order: Order 1
+SYSTEM LOG: | Mon Apr 14 15:15:12 EET 2025 | Amount: 100.0
+SYSTEM LOG: | Mon Apr 14 15:15:12 EET 2025 | Currency: USD
+SYSTEM LOG: | Mon Apr 14 15:15:12 EET 2025 | Processing American Express payment of 100.0
+SYSTEM LOG: | Mon Apr 14 15:15:12 EET 2025 | Payment processed successfully
+SYSTEM LOG: | Mon Apr 14 15:15:52 EET 2025 | Processing payment for order: Order 1
+SYSTEM LOG: | Mon Apr 14 15:15:52 EET 2025 | Amount: 100.0
+SYSTEM LOG: | Mon Apr 14 15:15:52 EET 2025 | Currency: USD
+SYSTEM LOG: | Mon Apr 14 15:15:52 EET 2025 | Processing American Express payment of 100.0
+SYSTEM LOG: | Mon Apr 14 15:15:52 EET 2025 | Payment processed successfully
